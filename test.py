@@ -1,16 +1,15 @@
 import threading
+import multiprocessing
 import time
 import random
 import sys
 
-stop_thread = False
-
 #Ideas: 
     #the "run" function will be what is run when a thread has all of its food
 
-class Customer(threading.Thread):
+class Customer(multiprocessing.Process):
     def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
+        multiprocessing.Process.__init__(self)
         self.threadID = threadID
         self.name = name
         self.counter = counter
@@ -22,8 +21,9 @@ class Customer(threading.Thread):
         print("Customer %s is eating... " % (self.name,))
         time.sleep(1)
         #print_time (self, self.name)
+        #print ("Customer %s has finished eating. " % (self.name,))
         print("Customer %s has finished eating. " % (self.name,))
-        sys.exit()
+        self.terminate()
         
 
 class Chef(threading.Thread):
@@ -67,25 +67,24 @@ if __name__ == "__main__":
     #customer1.start()
     #customer2.start()
     #customer3.start()
-    #for i in range (1, 100):
-    chef.join()
-    x = chef.makeFood()
-    y = chef.makeFood()
-    #Run makeFood function until x and y are different
-    while(x == y):
+    for i in range (1, 100):
+        chef.join()
+        x = chef.makeFood()
         y = chef.makeFood()
-    print (x)
-    print(y)
-    for i in range (0, 2):
-        if(x == 1 or y == 1):
-            customer2.hamburger = 1
-            customer3.hamburger = 1
-        if(x == 2 or y == 2):
-            customer1.fries = 1
-            customer3.fries = 1
-        if(x == 3 or y == 3):
-            customer1.soda = 1
-            customer2.soda = 1
+        #Run makeFood function until x and y are different
+        while(x == y):
+            y = chef.makeFood()
+    
+        for i in range (0, 2):
+            if(x == 1 or y == 1):
+                customer2.hamburger = 1
+                customer3.hamburger = 1
+            if(x == 2 or y == 2):
+                customer1.fries = 1
+                customer3.fries = 1
+            if(x == 3 or y == 3):
+                customer1.soda = 1
+                customer2.soda = 1
         '''
         if(customer1.fries == 0 and x == 2 or y == 2):
             customer1.fries = 1
@@ -100,24 +99,18 @@ if __name__ == "__main__":
         elif(customer3.fries == 0 and x == 2 or y == 2):
             customer3.fries = 1
         '''
-    if(customer1.hamburger and customer1.fries and customer1.soda):
-        c1_count = c1_count + 1
-        customer1.start()
-        stop_thread = True
-        customer1.join()
-        stop_thread = False
-    if(customer2.hamburger and customer2.fries and customer2.soda):
-        c2_count = c2_count + 1
-        customer2.start()
-        stop_thread = True
-        customer2.join()
-        stop_thread = False
-    if(customer3.hamburger and customer3.fries and customer3.soda):
-        c3_count = c3_count + 1
-        customer3.start()
-        stop_thread = True
-        customer3.join()
-        stop_thread = False
+        if(customer1.hamburger and customer1.fries and customer1.soda):
+            c1_count = c1_count + 1
+            customer1.start()
+            customer1.join()
+        if(customer2.hamburger and customer2.fries and customer2.soda):
+            c2_count = c2_count + 1
+            customer2.start()
+            customer2.join()
+        if(customer3.hamburger and customer3.fries and customer3.soda):
+            c3_count = c3_count + 1
+            customer3.start()
+            customer3.join()
         
         '''
         customer1.fries = 0
