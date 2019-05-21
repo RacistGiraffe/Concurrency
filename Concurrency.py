@@ -20,7 +20,7 @@ class Customer(threading.Thread):
         self.soda = 0
     def run(self):
         print("Customer %s is eating... " % (self.name,))
-        time.sleep(1)
+        time.sleep(0.5)
         #print_time (self, self.name)
         print("Customer %s has finished eating. " % (self.name,))
         sys.exit()
@@ -29,9 +29,6 @@ class Customer(threading.Thread):
 class Chef(threading.Thread):
     def __init(self):
         threading.Thread.__init__(self)
-        madeBurger = 0
-        madeFries = 0
-        madeSoda = 0
     def run(self):
         x = random.randint(1,3)
         y = random.randint(1,3)
@@ -53,10 +50,12 @@ if __name__ == "__main__":
     #Counts keep track of how many times the customer gets all 3 food types and is run
     i=0
     count = 0
+    c1_count = 0
+    c2_count = 0
+    c3_count = 0
     while i <= 100:
-        c1_count = 0
-        c2_count = 0
-        c3_count = 0
+        i = i + 1
+        print("Iteration: %d" % (i,))
         x = 0
         y = 0
         customer1 = Customer(1, "Customer #1", 1)
@@ -67,10 +66,6 @@ if __name__ == "__main__":
         customer3.soda = 1
         chef = Chef()
         chef.start()
-        #customer1.start()
-        #customer2.start()
-        #customer3.start()
-        #for i in range (1, 100):
         chef.join()
         x = chef.makeFood()
         y = chef.makeFood()
@@ -89,20 +84,6 @@ if __name__ == "__main__":
             if(x == 3 or y == 3):
                 customer1.soda = 1
                 customer2.soda = 1
-            '''
-            if(customer1.fries == 0 and x == 2 or y == 2):
-                customer1.fries = 1
-            elif(customer1.soda == 0 and x == 3 or y == 3):
-                customer1.soda = 1
-            elif(customer2.hamburger == 0 and x == 1 or y == 1):
-                customer2.hamburger = 1
-            elif(customer2.soda == 0 and x == 3 or y == 3):
-                customer2.soda = 1
-            elif(customer3.hamburger == 0 and x == 1 or y == 1):
-                customer3.hamburger = 1
-            elif(customer3.fries == 0 and x == 2 or y == 2):
-                customer3.fries = 1
-            '''
         if(customer1.hamburger and customer1.fries and customer1.soda):
             c1_count = c1_count + 1
             customer1.start()
@@ -122,14 +103,6 @@ if __name__ == "__main__":
             customer3.join()
             stop_thread = False
 
-            '''
-            customer1.fries = 0
-            customer1.soda = 0
-            customer2.hamburger = 0
-            customer2.soda = 0
-            customer3.hamburger = 0
-            customer3.fries = 0
-            '''
         print("Counts: ")
         print("Customer 1: %d" % (c1_count))
         print("Customer 2: %d" % (c2_count))
