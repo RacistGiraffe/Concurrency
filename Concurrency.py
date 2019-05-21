@@ -48,7 +48,7 @@ def print_time(thread, threadName):
 if __name__ == "__main__":
     #Create threads for customers and the food they have an unlimited supply of
     #Counts keep track of how many times the customer gets all 3 food types and is run
-    i=0
+    i = 0
     count = 0
     c1_count = 0
     c2_count = 0
