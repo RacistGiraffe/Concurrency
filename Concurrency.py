@@ -51,83 +51,86 @@ def print_time(thread, threadName):
 if __name__ == "__main__":
     #Create threads for customers and the food they have an unlimited supply of
     #Counts keep track of how many times the customer gets all 3 food types and is run
-    c1_count = 0
-    c2_count = 0
-    c3_count = 0
-    x = 0
-    y = 0
-    customer1 = Customer(1, "Customer #1", 1)
-    customer2 = Customer(2, "Customer #2", 2)
-    customer3 = Customer(3, "Customer #3", 3)
-    customer1.hamburger = 1
-    customer2.fries = 1
-    customer3.soda = 1
-    chef = Chef()
-    chef.start()
-    #customer1.start()
-    #customer2.start()
-    #customer3.start()
-    #for i in range (1, 100):
-    chef.join()
-    x = chef.makeFood()
-    y = chef.makeFood()
-    #Run makeFood function until x and y are different
-    while(x == y):
+    i=0
+    count = 0
+    while i <= 100:
+        c1_count = 0
+        c2_count = 0
+        c3_count = 0
+        x = 0
+        y = 0
+        customer1 = Customer(1, "Customer #1", 1)
+        customer2 = Customer(2, "Customer #2", 2)
+        customer3 = Customer(3, "Customer #3", 3)
+        customer1.hamburger = 1
+        customer2.fries = 1
+        customer3.soda = 1
+        chef = Chef()
+        chef.start()
+        #customer1.start()
+        #customer2.start()
+        #customer3.start()
+        #for i in range (1, 100):
+        chef.join()
+        x = chef.makeFood()
         y = chef.makeFood()
-    print (x)
-    print(y)
-    for i in range (0, 2):
-        if(x == 1 or y == 1):
-            customer2.hamburger = 1
-            customer3.hamburger = 1
-        if(x == 2 or y == 2):
-            customer1.fries = 1
-            customer3.fries = 1
-        if(x == 3 or y == 3):
-            customer1.soda = 1
-            customer2.soda = 1
-        '''
-        if(customer1.fries == 0 and x == 2 or y == 2):
-            customer1.fries = 1
-        elif(customer1.soda == 0 and x == 3 or y == 3):
-            customer1.soda = 1
-        elif(customer2.hamburger == 0 and x == 1 or y == 1):
-            customer2.hamburger = 1
-        elif(customer2.soda == 0 and x == 3 or y == 3):
-            customer2.soda = 1
-        elif(customer3.hamburger == 0 and x == 1 or y == 1):
-            customer3.hamburger = 1
-        elif(customer3.fries == 0 and x == 2 or y == 2):
-            customer3.fries = 1
-        '''
-    if(customer1.hamburger and customer1.fries and customer1.soda):
-        c1_count = c1_count + 1
-        customer1.start()
-        stop_thread = True
-        customer1.join()
-        stop_thread = False
-    if(customer2.hamburger and customer2.fries and customer2.soda):
-        c2_count = c2_count + 1
-        customer2.start()
-        stop_thread = True
-        customer2.join()
-        stop_thread = False
-    if(customer3.hamburger and customer3.fries and customer3.soda):
-        c3_count = c3_count + 1
-        customer3.start()
-        stop_thread = True
-        customer3.join()
-        stop_thread = False
-        
-        '''
-        customer1.fries = 0
-        customer1.soda = 0
-        customer2.hamburger = 0
-        customer2.soda = 0
-        customer3.hamburger = 0
-        customer3.fries = 0
-        '''
-    print("Counts: ")
-    print("Customer 1: %d" % (c1_count))
-    print("Customer 2: %d" % (c2_count))
-    print("Customer 3: %d" % (c3_count))
+        #Run makeFood function until x and y are different
+        while(x == y):
+            y = chef.makeFood()
+        print (x)
+        print(y)
+        for i in range (0, 2):
+            if(x == 1 or y == 1):
+                customer2.hamburger = 1
+                customer3.hamburger = 1
+            if(x == 2 or y == 2):
+                customer1.fries = 1
+                customer3.fries = 1
+            if(x == 3 or y == 3):
+                customer1.soda = 1
+                customer2.soda = 1
+            '''
+            if(customer1.fries == 0 and x == 2 or y == 2):
+                customer1.fries = 1
+            elif(customer1.soda == 0 and x == 3 or y == 3):
+                customer1.soda = 1
+            elif(customer2.hamburger == 0 and x == 1 or y == 1):
+                customer2.hamburger = 1
+            elif(customer2.soda == 0 and x == 3 or y == 3):
+                customer2.soda = 1
+            elif(customer3.hamburger == 0 and x == 1 or y == 1):
+                customer3.hamburger = 1
+            elif(customer3.fries == 0 and x == 2 or y == 2):
+                customer3.fries = 1
+            '''
+        if(customer1.hamburger and customer1.fries and customer1.soda):
+            c1_count = c1_count + 1
+            customer1.start()
+            stop_thread = True
+            customer1.join()
+            stop_thread = False
+        if(customer2.hamburger and customer2.fries and customer2.soda):
+            c2_count = c2_count + 1
+            customer2.start()
+            stop_thread = True
+            customer2.join()
+            stop_thread = False
+        if(customer3.hamburger and customer3.fries and customer3.soda):
+            c3_count = c3_count + 1
+            customer3.start()
+            stop_thread = True
+            customer3.join()
+            stop_thread = False
+
+            '''
+            customer1.fries = 0
+            customer1.soda = 0
+            customer2.hamburger = 0
+            customer2.soda = 0
+            customer3.hamburger = 0
+            customer3.fries = 0
+            '''
+        print("Counts: ")
+        print("Customer 1: %d" % (c1_count))
+        print("Customer 2: %d" % (c2_count))
+        print("Customer 3: %d" % (c3_count))
