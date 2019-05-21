@@ -17,11 +17,11 @@ class Customer(threading.Thread):
         self.hamburger = 0
         self.fries = 0
         self.soda = 0
-    #def run(self):
-    #    if(self.hamburger and self.fries and self.soda):
-    #        print("Starting " + self.name)
-    #        print_time (self.name, self.counter, 5)
-    #        print ("Exiting " +self.name)
+    def run(self):
+        if(self.hamburger and self.fries and self.soda):
+            print("Starting " + self.name)
+            print_time (self.name, self.counter, 5)
+            print ("Exiting " +self.name)
 
 class Chef(threading.Thread):
     def __init(self):
@@ -57,12 +57,14 @@ if __name__ == "__main__":
     customer2.start()
     customer3.start()
     for i in range (1, 100):
+        chef.join()
         x = chef.makeFood()
         y = chef.makeFood()
         #Run makeFood function until x and y are different
         while(x == y):
             y = chef.makeFood()
-        chef.join()
+        #chef.join()
+        
         for i in range (0, 1):
             if(customer1.fries == 0 and x == 2 or y == 2):
                 customer1.fries = 1
@@ -75,7 +77,7 @@ if __name__ == "__main__":
             elif(customer3.hamburger == 0 and x == 1 or y == 1):
                 customer3.hamburger = 1
             elif(customer3.fries == 0 and x == 2 or y == 2):
-                customer.fries = 1
+                customer3.fries = 1
         if(customer1.hamburger and customer1.fries and customer1.soda):
             c1_count = c1_count + 1
             customer1.join()
@@ -98,16 +100,3 @@ if __name__ == "__main__":
     print("Customer 1: %d" % (c1_count))
     print("Customer 2: %d" % (c2_count))
     print("Customer 3: %d" % (c3_count))
-
-
-
-
-    '''
-    thread1.start()
-    thread2.start()
-    thread3.start()
-    thread1.join()
-    thread2.join()
-    thread3.join()
-    '''
-    print("Exiting Main Thread")
